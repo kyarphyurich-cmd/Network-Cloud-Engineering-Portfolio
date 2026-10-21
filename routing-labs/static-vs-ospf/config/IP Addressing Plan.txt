@@ -1,0 +1,21 @@
+# IP Addressing Plan (Routing Lab)
+
+| Device | Platform   | Interface | IP Address       | Subnet Mask       | Network / Purpose            |
+|--------|------------|-----------|------------------|-------------------|------------------------------|
+| **PC1** | VPCS       | eth0      | 192.168.10.10    | 255.255.255.0     | R1 LAN host                  |
+| **R1** | IOSv       | Gi0/0     | 192.168.10.1     | 255.255.255.0     | LAN gateway for PC1          |
+|        |            | Gi0/1     | 10.0.12.1        | 255.255.255.252   | P2P link to R2 (CSR1000v)    |
+| **R2** | CSR1000v   | Gi1       | 10.0.12.2        | 255.255.255.252   | P2P link to R1 (IOSv)        |
+|        |            | Gi2       | 10.0.23.1        | 255.255.255.252   | P2P link to R3 (IOSv)        |
+| **R3** | IOSv       | Gi0/0     | 10.0.23.2        | 255.255.255.252   | P2P link to R2 (CSR1000v)    |
+|        |            | Gi0/1     | 192.168.20.1     | 255.255.255.0     | LAN gateway for PC2          |
+| **PC2** | VPCS       | eth0      | 192.168.20.10    | 255.255.255.0     | R3 LAN host                  |
+
+# Link Connections (Routing Lab)
+
+| Link / Subnet       | Device A (Interface) | Device B (Interface) |
+|---------------------|-----------------------|-----------------------|
+| 192.168.10.0/24     | R1 (Gi0/0)           | PC1 (eth0)           |
+| 10.0.12.0/30        | R1 (Gi0/1)           | R2 (Gi1)             |
+| 10.0.23.0/30        | R2 (Gi2)             | R3 (Gi0/0)           |
+| 192.168.20.0/24     | R3 (Gi0/1)           | PC2 (eth0)           |
