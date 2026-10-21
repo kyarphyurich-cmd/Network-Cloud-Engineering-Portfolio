@@ -1,0 +1,81 @@
+# 📄 Router Startup Configs
+
+---
+
+## 📡 R1 (IOSv)
+
+```cisco
+!
+hostname R1
+!
+interface GigabitEthernet0/0
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 10.0.12.1 255.255.255.252
+ no shutdown
+!
+line con 0
+ logging synchronous
+!
+router ospf 1
+ router-id 1.1.1.1
+ network 192.168.10.0 0.0.0.255 area 0
+ network 10.0.12.0 0.0.0.3 area 0
+!
+end
+````
+
+---
+
+## 📡 R2 (CSR1000v)
+
+```cisco
+!
+hostname R2
+!
+interface GigabitEthernet1
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet2
+ ip address 10.0.23.1 255.255.255.252
+ no shutdown
+!
+line con 0
+ logging synchronous
+!
+router ospf 1
+ router-id 2.2.2.2
+ network 10.0.12.0 0.0.0.3 area 0
+ network 10.0.23.0 0.0.0.3 area 0
+!
+end
+```
+
+---
+
+## 📡 R3 (IOSv)
+
+```cisco
+!
+hostname R3
+!
+interface GigabitEthernet0/0
+ ip address 10.0.23.2 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+!
+line con 0
+ logging synchronous
+!
+router ospf 1
+ router-id 3.3.3.3
+ network 10.0.23.0 0.0.0.3 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+!
+end
